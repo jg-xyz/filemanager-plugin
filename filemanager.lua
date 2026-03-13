@@ -995,7 +995,7 @@ function preQuitAll(view)
 	close_tree()
 end
 
--- FIXME: Workaround for the weird 2-index movement on cursordown
+-- NOTE: Workaround for the weird 2-index movement on cursordown in Micro
 function preCursorDown(view)
 	if view == tree_view then
 		tree_view.Buf.Cursor:Down()
@@ -1162,13 +1162,7 @@ function preFind(view)
 	clearselection_if_tree(view)
 end
 
--- FIXME: doesn't work for whatever reason
-function onFind(view)
-	-- Select the whole line after a find, instead of just the input txt
-	selectline_if_tree(view)
-end
-
--- CtrlN after CtrlF
+-- CtrlN after CtrlF (also fires for the initial find match)
 function onFindNext(view)
 	selectline_if_tree(view)
 end
@@ -1311,7 +1305,7 @@ function preSelectAll(view)
 	return false_if_tree(view)
 end
 
-function onInit()
+function init()
 	-- Initialize the current working directory now that the Micro API is available
 	current_dir = WorkingDirectory()
 
