@@ -18,13 +18,13 @@ If the directory is expanded, there will be a `+` to the left of it. If it is co
 
 ### Options
 
-| Option                       | Purpose                                                      | Default |
-| :--------------------------- | :----------------------------------------------------------- | :------ |
-| `filemanager-showdotfiles`   | Show dotfiles (hidden if false)                              | `true`  |
-| `filemanager-showignored`    | Show gitignore'd files (hidden if false)                     | `true`  |
-| `filemanager-compressparent` | Collapse the parent dir when left is pressed on a child file | `true`  |
-| `filemanager-foldersfirst`   | Sorts folders above any files                                | `true`  |
-| `filemanager-openonstart`    | Automatically open the file tree when starting Micro         | `false` |
+| Option                        | Purpose                                                      | Default |
+| :---------------------------- | :----------------------------------------------------------- | :------ |
+| `filemanager.showdotfiles`    | Show dotfiles (hidden if false)                              | `true`  |
+| `filemanager.showignored`     | Show gitignore'd files (hidden if false)                     | `true`  |
+| `filemanager.compressparent`  | Collapse the parent dir when left is pressed on a child file | `true`  |
+| `filemanager.foldersfirst`    | Sorts folders above any files                                | `true`  |
+| `filemanager.openonstart`     | Automatically open the file tree when starting Micro         | `false` |
 
 ### Commands and Keybindings
 
