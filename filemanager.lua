@@ -146,10 +146,10 @@ local function get_scanlist(dir, ownership, indent_n)
 		return new_listobj(abs_path, dirmsg, ownership, indent_n)
 	end
 
-	-- Save so we don't have to rerun GetOption a bunch
-	local show_dotfiles = config.GetOption("filemanager.showdotfiles")
-	local show_ignored = config.GetOption("filemanager.showignored")
-	local folders_first = config.GetOption("filemanager.foldersfirst")
+	-- Save so we don't have to rerun GetGlobalOption a bunch
+	local show_dotfiles = config.GetGlobalOption("filemanager.showdotfiles")
+	local show_ignored = config.GetGlobalOption("filemanager.showignored")
+	local folders_first = config.GetGlobalOption("filemanager.foldersfirst")
 
 	-- The list of VCS-ignored files (if any)
 	-- Only bother getting ignored files if we're not showing ignored
@@ -401,7 +401,7 @@ local function compress_target(y, delete_y)
 			-- Update the dir message
 			scanlist[y].dirmsg = "+"
 		end
-	elseif config.GetOption("filemanager.compressparent") and not delete_y then
+	elseif config.GetGlobalOption("filemanager.compressparent") and not delete_y then
 		goto_parent_dir()
 		-- Prevent a pointless refresh of the view
 		return
@@ -1349,7 +1349,7 @@ function init()
 
 	-- NOTE: This must be below the syntax load command or coloring won't work
 	-- Just auto-open if the option is enabled
-	if config.GetOption("filemanager.openonstart") == true then
+	if config.GetGlobalOption("filemanager.openonstart") == true then
 		-- Check for safety on the off-chance someone's init.lua breaks this
 		if tree_view == nil then
 			open_tree()
