@@ -1071,7 +1071,7 @@ function preMousePress(view, event)
 	if view == tree_view then
 		local x, y = event:Position()
 		-- Adjust y for the scroll offset so we get the correct buffer line
-		local new_y = y + view.Topline
+		local new_y = y + view:GetView().StartLine.Line
 		-- Try to open whatever is at the click's y index
 		-- Will go into/back dirs based on what's clicked, nothing gets expanded
 		try_open_at_y(new_y)
