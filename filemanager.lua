@@ -1088,8 +1088,8 @@ end
 function preMousePress(view, event)
 	if view == tree_view then
 		local x, y = event:Position()
-		-- Fixes the y because softwrap messes with it
-		local new_x, new_y = tree_view:GetMouseClickLocation(x, y)
+		-- Adjust y for the scroll offset so we get the correct buffer line
+		local new_y = y + view.Topline
 		-- Try to open whatever is at the click's y index
 		-- Will go into/back dirs based on what's clicked, nothing gets expanded
 		try_open_at_y(new_y)
@@ -1153,6 +1153,17 @@ function preInsertTab(view)
 		return false
 	end
 end
+
+-- Enter
+function preInsertNewline(view)
+	if view == tree_view then
+		-- Open the file/dir under the cursor in a new focused tab
+		try_open_at_y(tree_view.Buf.Cursor.Loc.Y)
+		-- Don't actually insert a newline
+		return false
+	end
+end
+
 -- CtrlL
 function onJumpLine(view)
 	-- Highlight the line after jumping to it
