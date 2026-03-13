@@ -1318,15 +1318,15 @@ function init()
 	current_dir = get_working_dir() or ""
 
 	-- Open/close the tree view
-	config.MakeCommand("tree", "filemanager.toggle_tree", config.NoComplete)
-	-- Rename the file/dir under the cursor
-	config.MakeCommand("rename", "filemanager.rename_at_cursor", config.NoComplete)
-	-- Create a new file
-	config.MakeCommand("touch", "filemanager.new_file", config.NoComplete)
-	-- Create a new dir
-	config.MakeCommand("mkdir", "filemanager.new_dir", config.NoComplete)
+	config.MakeCommand("tree", function(bp, args) toggle_tree() end, config.NoComplete)
+	-- Rename the file/dir under the cursor (pass the first arg as new name)
+	config.MakeCommand("rename", function(bp, args) rename_at_cursor(args[1]) end, config.NoComplete)
+	-- Create a new file (pass the first arg as file name)
+	config.MakeCommand("touch", function(bp, args) new_file(args[1]) end, config.NoComplete)
+	-- Create a new dir (pass the first arg as dir name)
+	config.MakeCommand("mkdir", function(bp, args) new_dir(args[1]) end, config.NoComplete)
 	-- Delete a file/dir, and anything contained in it if it's a dir
-	config.MakeCommand("rm", "filemanager.prompt_delete_at_cursor", config.NoComplete)
+	config.MakeCommand("rm", function(bp, args) prompt_delete_at_cursor() end, config.NoComplete)
 	-- Adds colors to the ".." and any dir's in the tree view via syntax highlighting
 	-- TODO: Change it to work with git, based on untracked/changed/added/whatever
 	config.AddRuntimeFile("filemanager", config.RTSyntax, "syntax.yaml")
