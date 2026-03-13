@@ -265,8 +265,8 @@ local function refresh_view()
 	clear_messenger()
 
 	-- If it's less than 30, just use 30 for width. Don't want it too small
-	if tree_view.Width < 30 then
-		tree_view.Width = 30
+	if tree_view:GetView().Width < 30 then
+		tree_view:ResizePane(30)
 	end
 
 	-- Delete everything in the view/buffer
@@ -276,7 +276,7 @@ local function refresh_view()
 	-- Current dir
 	tree_view.Buf:Insert(buffer.Loc(0, 0), current_dir .. "\n")
 	-- An ASCII separator
-	tree_view.Buf:Insert(buffer.Loc(0, 1), repeat_str("─", tree_view.Width) .. "\n")
+	tree_view.Buf:Insert(buffer.Loc(0, 1), repeat_str("─", tree_view:GetView().Width) .. "\n")
 	-- The ".." and use a newline if there are things in the current dir
 	tree_view.Buf:Insert(buffer.Loc(0, 2), (#scanlist > 0 and "..\n" or ".."))
 
@@ -430,9 +430,9 @@ local function compress_target(y, delete_y)
 		scanlist = second_table
 	end
 
-	if tree_view.Width > (30 + highest_visible_indent) then
+	if tree_view:GetView().Width > (30 + highest_visible_indent) then
 		-- Shave off some width
-		tree_view.Width = 30 + highest_visible_indent
+		tree_view:ResizePane(30 + highest_visible_indent)
 	end
 
 	refresh_and_select()
@@ -477,7 +477,7 @@ local function update_current_dir(path)
 	-- Clear the highest since this is a full refresh
 	highest_visible_indent = 0
 	-- Set the width back to 30
-	tree_view.Width = 30
+	tree_view:ResizePane(30)
 	-- Update the current dir to the new path
 	current_dir = path
 
@@ -594,7 +594,7 @@ local function uncompress_target(y)
 				-- Save the new highest indent
 				highest_visible_indent = scanlist[y].indent
 				-- Increase the width to fit the new nested content
-				tree_view.Width = tree_view.Width + scanlist[y].indent
+				tree_view:ResizePane(tree_view:GetView().Width + scanlist[y].indent)
 			end
 		end
 
