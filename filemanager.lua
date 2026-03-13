@@ -234,18 +234,17 @@ local function select_line(last_y)
 		-- Don't let them move past ".." by checking the result first
 		if last_y > 1 then
 			-- If the last position was valid, move back to it
-			tree_view.Cursor.Loc.Y = last_y
+			tree_view.Cursor:GotoLoc(buffer.Loc(0, last_y))
 		end
 	elseif tree_view.Cursor.Loc.Y < 2 then
 		-- Put the cursor on the ".." if it's above it
-		tree_view.Cursor.Loc.Y = 2
+		tree_view.Cursor:GotoLoc(buffer.Loc(0, 2))
 	end
 
 	-- Puts the cursor back in bounds (if it isn't) for safety
 	tree_view.Cursor:Relocate()
 
 	-- Makes sure the cursor is visible (if it isn't)
-	-- (false) means no callback
 	tree_view:Center()
 
 	-- Highlight the current line where the cursor is
@@ -318,7 +317,7 @@ end
 -- Moves the cursor to the ".." in tree_view
 local function move_cursor_top()
 	-- 2 is the position of the ".."
-	tree_view.Cursor.Loc.Y = 2
+	tree_view.Cursor:GotoLoc(buffer.Loc(0, 2))
 
 	-- select the line after moving
 	select_line()
