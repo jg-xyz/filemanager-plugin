@@ -9,7 +9,7 @@ end
 -- Holds the CurView() we're manipulating
 local tree_view = nil
 -- Keeps track of the current working directory
-local current_dir = WorkingDirectory()
+local current_dir = nil
 -- Keep track of current highest visible indent to resize width appropriately
 local highest_visible_indent = 0
 -- Holds a table of paths -- objects from new_listobj() calls
@@ -1326,6 +1326,9 @@ MakeCommand("rm", "filemanager.prompt_delete_at_cursor", 0)
 AddRuntimeFile("filemanager", "syntax", "syntax.yaml")
 
 function onInit()
+	-- Initialize the current working directory now that the Micro API is available
+	current_dir = WorkingDirectory()
+
 	-- Let the user disable showing of dotfiles like ".editorconfig" or ".DS_STORE"
 	if GetOption("filemanager-showdotfiles") == nil then
 		AddOption("filemanager-showdotfiles", true)
